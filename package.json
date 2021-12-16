@@ -1,0 +1,22 @@
+{
+  "name": "d4063",
+  "version": "1.0.0",
+  "description": "Hello World",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CaioWzy/d4063.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CaioWzy/d4063/issues"
+  },
+  "homepage": "https://github.com/CaioWzy/d4063#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
