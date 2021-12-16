@@ -3,6 +3,8 @@ const express = require('express');
 
 const router = express.Router({ mergeParams: true });
 
-router.get('/healthy', (req, res) => res.sendStatus(200))
+const healthyController = require('./healthy/HealthyController')
 
-module.exports = router
+router.get('/healthy', healthyController.index);
+
+module.exports = router;
