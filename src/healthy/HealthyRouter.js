@@ -1,10 +1,10 @@
 const express = require('express');
 
-const healthyController = require('./HealthyController');
+const controller = require('./HealthyController');
 
 
 const router = express.Router({ mergeParams: true });
 
-router.get('/healthy', healthyController.index);
+router.get('/healthy', controller.index);
 
 module.exports = router;
