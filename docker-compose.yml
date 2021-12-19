@@ -2,6 +2,8 @@
 version: '2'
 services:
   mongo:
+    ports:
+      - "27017:27017"
     image: mongo
     restart: always
     environment:

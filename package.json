@@ -19,6 +19,7 @@
   "homepage": "https://github.com/CaioWzy/d4063#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
     "mongodb": "^4.2.2"
   }
 }
