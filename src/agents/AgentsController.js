@@ -22,7 +22,16 @@ const create = async (req, res, next) => {
     }
 };
 
-const get = (req, res) => res.sendStatus(200);
+const get = async (req, res, next) => {
+    const domain = req.getDomain();
+    const { id } = req.params
+
+    try {
+        res.json(await service.get(domain, id));
+    } catch (error) {
+        next(error);
+    }
+};
 
 const update = (req, res) => res.sendStatus(200);
 
