@@ -33,7 +33,17 @@ const get = async (req, res, next) => {
     }
 };
 
-const update = (req, res) => res.sendStatus(200);
+const update = async (req, res, next) => {
+    const domain = req.getDomain();
+    const { id } = req.params;
+    const payload = req.body;
+
+    try {
+        res.json(await service.update(domain, id, payload));
+    } catch (error) {
+        next(error);
+    }
+};
 
 const destroy = (req, res) => res.sendStatus(200);
 

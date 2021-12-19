@@ -18,8 +18,29 @@ const findOne = async (domain, id) => {
     return new AgentDto(agent);
 }
 
+const update = async (domain, id, agent) => {
+    const _id = ObjectId(id);
+
+    const { name, login, medias, email, chat } = agent;
+
+    const data = await collection.updateOne({ _id, domain}, {
+        $set: {
+            name,
+            login,
+            medias,
+            email,
+            chat
+        }
+    })
+
+    if (data.matchedCount) return await findOne(domain, id);
+
+    return null;
+}
+
 module.exports = {
     findAll,
     save,
-    findOne
+    findOne,
+    update
 }

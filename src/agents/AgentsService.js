@@ -9,8 +9,11 @@ const create = async (domain, agent) => {
 
 const get = async (domain, id) => repository.findOne(domain, id);
 
+const update = async (domain, id, agent) => repository.update(domain, id, agent);
+
 module.exports = {
     listAll,
     create,
-    get
+    get,
+    update
 }
