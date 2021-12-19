@@ -2,8 +2,9 @@ const service = require('./AgentsService')
 
 
 const index = async (req, res, next) => {
+    const domain = req.getDomain()
     try {
-        res.json(await service.listAll())
+        res.json(await service.listAll(domain))
     } catch (error) {
         next(error)
     }

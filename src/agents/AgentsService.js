@@ -1,11 +1,6 @@
-const { db } = require('../database/MongoClient')
+const repository = require('./AgentsRepository')
 
-
-const collection = db.collection("agents");
-
-const listAll = async () => {
-    return await collection.find().toArray();
-}
+const listAll = async (domain) => repository.findAll(domain)
 
 module.exports = {
     listAll
