@@ -2,15 +2,25 @@ const service = require('./AgentsService')
 
 
 const index = async (req, res, next) => {
-    const domain = req.getDomain()
+    const domain = req.getDomain();
+
     try {
-        res.json(await service.listAll(domain))
+        res.json(await service.listAll(domain));
     } catch (error) {
-        next(error)
+        next(error);
     }
 };
 
-const create = (req, res) => res.sendStatus(200);
+const create = async (req, res, next) => {
+    const domain = req.getDomain();
+    const agent = req.body;
+
+    try {
+        res.json(await service.create(domain, agent));
+    } catch (error) {
+        next(error);
+    }
+};
 
 const get = (req, res) => res.sendStatus(200);
 
