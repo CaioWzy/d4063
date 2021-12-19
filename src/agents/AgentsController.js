@@ -1,4 +1,13 @@
-const index = (req, res) => res.sendStatus(200);
+const service = require('./AgentsService')
+
+
+const index = async (req, res, next) => {
+    try {
+        res.json(await service.listAll())
+    } catch (error) {
+        next(error)
+    }
+};
 
 const create = (req, res) => res.sendStatus(200);
 
