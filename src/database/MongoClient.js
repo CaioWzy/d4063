@@ -15,7 +15,7 @@ const checkConnection = async () => {
     }
 }
 
-const getDatabase = () => client.db("d4063");
+const getDatabase = () => client.db(process.env.MONGO_DATABASE);
 
 module.exports = {
     checkConnection,

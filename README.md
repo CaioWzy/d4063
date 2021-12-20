@@ -6,7 +6,7 @@
 		a. Crie um banco de dados chamado 'd4063' com uma collection chamada 'users' e dentro desta um registro de usuário como exemplificado a seguir:
 		`{  
             "clientId": "empresadev",
-		    "clientSecret": "abcdef"
+		    "clientSecret": "abcdef",
 		    "domain": "empresa"
 		}`
 3. Uma vez cadastrado o usuário de acesso, gere o token fazendo uma requisição do tipo POST à endpoint {{baseUrl}}/v1/public/users/auth com o seguinte corpo:
