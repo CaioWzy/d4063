@@ -10,12 +10,9 @@ const router = express.Router({ mergeParams: true });
 const publicRouter = express.Router({ mergeParams: true });
 
 router.use(healthyRouter);
-router.use('/public', [
-    middlewares.getDomainHandler,
-    express.json()
-], publicRouter);
+router.use('/public', [express.json()], publicRouter);
 
-publicRouter.use('/agents', agentsRouter);
+publicRouter.use('/agents', [middlewares.authenticationHandler], agentsRouter);
 publicRouter.use('/users', usersRouter);
 
 module.exports = router;
