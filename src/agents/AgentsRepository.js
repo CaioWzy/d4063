@@ -49,10 +49,13 @@ const destroy = async (domain, id, login) => {
     });
 }
 
+const findByLogin = async (domain, login) => collection.findOne({ login, domain });
+
 module.exports = {
     findAll,
     save,
     findOne,
     update,
-    destroy
+    destroy,
+    findByLogin
 }

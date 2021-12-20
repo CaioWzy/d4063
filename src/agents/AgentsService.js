@@ -1,6 +1,7 @@
 const AgentDto = require('./dtos/AgentDto');
-const repository = require('./AgentsRepository')
-const NotFoundError = require('../exceptions/NotFoundError')
+const repository = require('./AgentsRepository');
+const NotFoundError = require('../exceptions/NotFoundError');
+const IntegrityError = require ('../exceptions/IntegrityError');
 
 
 const listAll = async (domain) => {
@@ -10,7 +11,12 @@ const listAll = async (domain) => {
 }
 
 const create = async (domain, newAgent) => {
+    const agentExists = await repository.findByLogin(domain, newAgent.login);
+
+    if (agentExists) throw new IntegrityError('Duplicate entry.'); 
+
     newAgent.domain = domain;
+
     const agent = await repository.save(newAgent);
 
     return new AgentDto(await repository.findOne(domain, agent.insertedId));
@@ -19,7 +25,7 @@ const create = async (domain, newAgent) => {
 const get = async (domain, id) => {
     const agent = await repository.findOne(domain, id);
 
-    if (!agent) throw new NotFoundError("Object not found.");
+    if (!agent) throw new NotFoundError('Object not found.');
     
     return new AgentDto(agent);
 }
@@ -29,7 +35,7 @@ const update = async (domain, id, newAgent) => {
 
     const agent = await repository.findOne(domain, id);
 
-    if (!agent) throw new NotFoundError("Object not found.");
+    if (!agent) throw new NotFoundError('Object not found.');
     
     return new AgentDto(agent);
 }

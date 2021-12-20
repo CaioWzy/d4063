@@ -29,6 +29,7 @@ const authenticationHandler = (req, res, next) => {
 }
 
 const globalErrorHandler = (err, req, res, next) => {
+    console.log(err)
     if (err instanceof BaseException) {
         res.status(err.getStatusCode()).send(err.getMessage());
         return;
