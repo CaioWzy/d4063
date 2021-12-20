@@ -13,7 +13,7 @@ const save = async (agent) => collection.insertOne(agent);
 const findOne = async (domain, id) => {
     const _id = ObjectId(id);
 
-    const agent = await collection.findOne({ domain, _id });
+    const agent = await collection.findOne({ _id, domain });
 
     return new AgentDto(agent);
 }
@@ -23,7 +23,7 @@ const update = async (domain, id, agent) => {
 
     const { name, login, medias, email, chat } = agent;
 
-    const data = await collection.updateOne({ _id, domain}, {
+    const data = await collection.updateOne({ _id, domain }, {
         $set: {
             name,
             login,
@@ -31,16 +31,23 @@ const update = async (domain, id, agent) => {
             email,
             chat
         }
-    })
+    });
 
-    if (data.matchedCount) return await findOne(domain, id);
+    if (data.matchedCount) return findOne(domain, id);
 
     return null;
+}
+
+const destroy = async (domain, id) => {
+    const _id = ObjectId(id);
+
+    collection.deleteOne({ _id, domain });
 }
 
 module.exports = {
     findAll,
     save,
     findOne,
-    update
+    update,
+    destroy
 }

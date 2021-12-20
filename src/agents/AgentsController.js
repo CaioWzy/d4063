@@ -45,7 +45,17 @@ const update = async (req, res, next) => {
     }
 };
 
-const destroy = (req, res) => res.sendStatus(200);
+const destroy = async (req, res, next) => {
+    const domain = req.getDomain();
+    const { id } = req.params;
+    const payload = req.body;
+
+    try {
+        res.json(await service.destroy(domain, id, payload));
+    } catch (error) {
+        next(error);
+    }
+};
 
 module.exports = {
     index,
