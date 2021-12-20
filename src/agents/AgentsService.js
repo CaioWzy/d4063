@@ -2,6 +2,7 @@ const AgentDto = require('./dtos/AgentDto');
 const repository = require('./AgentsRepository');
 const NotFoundError = require('../exceptions/NotFoundError');
 const IntegrityError = require ('../exceptions/IntegrityError');
+const Utils = require('../Utils')
 
 
 const listAll = async (domain) => {
@@ -16,6 +17,9 @@ const create = async (domain, newAgent) => {
     if (agentExists) throw new IntegrityError('Duplicate entry.'); 
 
     newAgent.domain = domain;
+
+    const password = newAgent.password;
+    newAgent.password = Utils.hashPassword(newAgent.name, password)
 
     const agent = await repository.save(newAgent);
 
