@@ -1,8 +1,9 @@
 const express = require('express');
 
-const middlewares = require('./Middlewares')
+const middlewares = require('./Middlewares');
 const healthyRouter = require('./healthy/HealthyRouter');
 const agentsRouter = require('./agents/AgentsRouter');
+const usersRouter = require('./users/UsersRouter');
 
 
 const router = express.Router({ mergeParams: true });
@@ -15,5 +16,6 @@ router.use('/public', [
 ], publicRouter);
 
 publicRouter.use('/agents', agentsRouter);
+publicRouter.use('/users', usersRouter);
 
 module.exports = router;
