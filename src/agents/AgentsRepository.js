@@ -23,14 +23,16 @@ const update = async (domain, id, agent) => {
 
     const { name, login, medias, email, chat } = agent;
 
+    const newData = {}
+
+    if (name) newData['name'] = name;
+    if (login) newData['login'] = login;
+    if (medias) newData['medias'] = medias;
+    if (email) newData['email'] = email;
+    if (chat) newData['chat'] = chat;
+
     const data = await collection.updateOne({ _id, domain }, {
-        $set: {
-            name,
-            login,
-            medias,
-            email,
-            chat
-        }
+        $set: newData
     });
 
     if (data.matchedCount) return findOne(domain, id);

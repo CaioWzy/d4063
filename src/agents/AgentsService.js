@@ -1,5 +1,7 @@
 const AgentDto = require('./dtos/AgentDto');
 const repository = require('./AgentsRepository')
+const NotFoundError = require('../exceptions/NotFoundError')
+
 
 const listAll = async (domain) => {
     const agentList = await repository.findAll(domain);
@@ -17,6 +19,8 @@ const create = async (domain, newAgent) => {
 const get = async (domain, id) => {
     const agent = await repository.findOne(domain, id);
 
+    if (!agent) throw new NotFoundError("Object not found.");
+    
     return new AgentDto(agent);
 }
 
@@ -25,6 +29,8 @@ const update = async (domain, id, newAgent) => {
 
     const agent = await repository.findOne(domain, id);
 
+    if (!agent) throw new NotFoundError("Object not found.");
+    
     return new AgentDto(agent);
 }
 
