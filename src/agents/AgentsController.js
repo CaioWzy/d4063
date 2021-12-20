@@ -48,19 +48,29 @@ const update = async (req, res, next) => {
 const destroy = async (req, res, next) => {
     const domain = req.getDomain();
     const { id } = req.params;
-    const payload = req.body;
 
     try {
-        res.json(await service.destroy(domain, id, payload));
+        res.json(await service.destroy(domain, id));
     } catch (error) {
         next(error);
     }
 };
 
+const destroyByLogin = async (req, res, next) => {
+    const domain = req.getDomain();
+    const { login } = req.query;
+
+    try {
+        res.json(await service.destroy(domain, null, login));
+    } catch (error) {
+        next(error);
+    }
+};
 module.exports = {
     index,
     create,
     get,
     update,
-    destroy
+    destroy,
+    destroyByLogin
 }

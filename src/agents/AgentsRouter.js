@@ -5,6 +5,8 @@ const controller = require('./AgentsController');
 
 const router = express.Router({ mergeParams: true });
 
+router.delete('/', controller.destroyByLogin);
+
 router.get('/', controller.index);
 
 router.post('/', controller.create);

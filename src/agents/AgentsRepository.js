@@ -38,10 +38,13 @@ const update = async (domain, id, agent) => {
     return null;
 }
 
-const destroy = async (domain, id) => {
+const destroy = async (domain, id, login) => {
     const _id = ObjectId(id);
 
-    collection.deleteOne({ _id, domain });
+    await collection.deleteOne({
+        $or:[{ _id }, { login }], 
+        domain
+    });
 }
 
 module.exports = {

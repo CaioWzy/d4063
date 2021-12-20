@@ -11,7 +11,7 @@ const get = async (domain, id) => repository.findOne(domain, id);
 
 const update = async (domain, id, agent) => repository.update(domain, id, agent);
 
-const destroy = async (domain, id) => repository.destroy(domain, id);
+const destroy = async (domain, id, login) => repository.destroy(domain, id, login);
 
 module.exports = {
     listAll,
