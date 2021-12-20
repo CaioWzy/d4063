@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 
 const { checkConnection } = require('./src/database/MongoClient');
@@ -17,7 +18,8 @@ app.use([
 
 async function main() {
     await checkConnection();
-    app.listen(8080, () => console.log("Ok"));
+    const PORT = process.env.HTTP_PORT || 8080;
+    app.listen(PORT, () => console.log(`API is now available at http://localhost:${PORT}`));
 }
 
 main();

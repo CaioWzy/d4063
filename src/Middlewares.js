@@ -15,7 +15,7 @@ const authenticationHandler = (req, res, next) => {
     let data = null;
 
     try {
-        data = jwt.verify(token, 'shhhhh');
+        data = jwt.verify(token, process.env.SECRET_KEY);
     } catch(error) {
         return next(new AuthenticationError("Invalid access token!"));
     }
@@ -28,10 +28,11 @@ const authenticationHandler = (req, res, next) => {
     next()
 }
 
-const globalErrorHandler = (err, req, res, next) => {
-    console.log(err)
-    if (err instanceof BaseException) {
-        res.status(err.getStatusCode()).send(err.getMessage());
+const globalErrorHandler = (error, req, res, next) => {
+    console.log(error);
+
+    if (error instanceof BaseException) {
+        res.status(error.getStatusCode()).send(error.getMessage());
         return;
     }
     
