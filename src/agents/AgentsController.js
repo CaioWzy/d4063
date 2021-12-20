@@ -1,4 +1,5 @@
 const service = require('./AgentsService')
+const httpStatuses = require('../enums/HttpStatuses')
 
 
 const index = async (req, res, next) => {
@@ -16,7 +17,7 @@ const create = async (req, res, next) => {
     const agent = req.body;
 
     try {
-        res.json(await service.create(domain, agent));
+        res.status(httpStatuses.CREATED).json(await service.create(domain, agent));
     } catch (error) {
         next(error);
     }
@@ -66,6 +67,7 @@ const destroyByLogin = async (req, res, next) => {
         next(error);
     }
 };
+
 module.exports = {
     index,
     create,

@@ -1,15 +1,32 @@
+const AgentDto = require('./dtos/AgentDto');
 const repository = require('./AgentsRepository')
 
-const listAll = async (domain) => repository.findAll(domain);
+const listAll = async (domain) => {
+    const agentList = await repository.findAll(domain);
 
-const create = async (domain, agent) => {
-    agent.domain = domain;
-    return repository.save(agent);
+    return agentList.map(agent => new AgentDto(agent));
 }
 
-const get = async (domain, id) => repository.findOne(domain, id);
+const create = async (domain, newAgent) => {
+    newAgent.domain = domain;
+    const agent = await repository.save(newAgent);
 
-const update = async (domain, id, agent) => repository.update(domain, id, agent);
+    return new AgentDto(await repository.findOne(domain, agent.insertedId));
+}
+
+const get = async (domain, id) => {
+    const agent = await repository.findOne(domain, id);
+
+    return new AgentDto(agent);
+}
+
+const update = async (domain, id, newAgent) => {
+    await repository.update(domain, id, newAgent);
+
+    const agent = await repository.findOne(domain, id);
+
+    return new AgentDto(agent);
+}
 
 const destroy = async (domain, id, login) => repository.destroy(domain, id, login);
 
